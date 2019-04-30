@@ -330,12 +330,17 @@ void draw() {
             // Check if "player is NOT above the ground AND there's soil on the left"
             // > If so, dig it and decrease its health
             // > Else then start moving (set playerMoveDirection and playerMoveTimer)
-            if(soilHealth[playerCol-1][playerRow] > 0){
-              soilHealth[playerCol-1][playerRow] -= digSpeed;
+            if(playerRow != -1){
+              if(soilHealth[playerCol-1][playerRow] > 0){
+                soilHealth[playerCol-1][playerRow] -= digSpeed;
+              }else{
+                playerMoveDirection = LEFT;
+                playerMoveTimer = playerMoveDuration;
+              }
             }else{
               playerMoveDirection = LEFT;
               playerMoveTimer = playerMoveDuration;
-            } 
+            }
           }
   
         }else if(rightState){
@@ -349,14 +354,19 @@ void draw() {
             // Check if "player is NOT above the ground AND there's soil on the right"
             // > If so, dig it and decrease its health
             // > Else then start moving (set playerMoveDirection and playerMoveTimer)
-            if(soilHealth[playerCol+1][playerRow] > 0){
-              soilHealth[playerCol+1][playerRow] -= digSpeed;
+            if(playerRow != -1){
+              if(soilHealth[playerCol+1][playerRow] > 0){
+                soilHealth[playerCol+1][playerRow] -= digSpeed;
+              }else{
+                playerMoveDirection = RIGHT;
+                playerMoveTimer = playerMoveDuration;
+              }
             }else{
               playerMoveDirection = RIGHT;
-              playerMoveTimer = playerMoveDuration;
+              playerMoveTimer = playerMoveDuration;   
             }
           }
-  
+          
         }else if(downState){
   
           groundhogDisplay = groundhogDown;
@@ -443,7 +453,7 @@ void draw() {
         playerCol = (int) (playerX / SOIL_SIZE);
         playerRow = (int) (playerY / SOIL_SIZE);
         playerMoveTimer = 0;
-        soilHealth[1][4]=15;
+        soilHealth[4][0]=15;
         leftState = false;
         downState = false;
         rightState = false;
